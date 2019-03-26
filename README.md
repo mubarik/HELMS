@@ -1,24 +1,10 @@
-# README
+HELM is employee clocking system it has follwing features
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1) you can sign up and log in
+2) once employee log in he can clock in. If he is already cloked in then he cant clockin again.
+3) once emplyee is clocked in he can clock out. if he is already cloked out he cant clock out.
+4) only admin can edit clock event
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Future changes
+1) will use bootstrap for better user expereince and UI
+2) more test case coverage

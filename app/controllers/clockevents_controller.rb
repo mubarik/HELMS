@@ -27,14 +27,34 @@ class ClockeventsController < ApplicationController
   # POST /clockevents.json
   def create
     @clockevent = Clockevent.new(clockevent_params)
-    @clockevent = current_user
-    respond_to do |format|
-      if @clockevent.save
-        format.html { redirect_to @clockevent, notice: 'Clockevent was successfully created.' }
-        format.json { render :show, status: :created, location: @clockevent }
+    @clockevent.user = current_user
+    @user = current_user
+    logger.debug " inspecting  #{params[:clockevent][:event].to_s}"
+    if params[:clockevent][:event].to_s == "ClockIn" && current_user.checkedin
+      render(
+        html: "<script>alert('users already checked in')</script>".html_safe,
+        layout: 'application'
+      )
+    elsif params[:clockevent][:event].to_s == "ClockOut" && !current_user.checkedin
+      render(
+        html: "<script>alert('users already clocked out')</script>".html_safe,
+        layout: 'application'
+      )
+    else
+      if params[:clockevent][:event].to_s == "ClockIn" 
+        @user.checkedin = true
       else
-        format.html { render :new }
-        format.json { render json: @clockevent.errors, status: :unprocessable_entity }
+        @user.checkedin  = false
+      end
+      respond_to do |format|
+        if @clockevent.save
+          @user.save
+          format.html { redirect_to @clockevent, notice: 'Clockevent was successfully created.' }
+          format.json { render :show, status: :created, location: @clockevent }
+        else
+          format.html { render :new }
+          format.json { render json: @clockevent.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -71,6 +91,6 @@ class ClockeventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def clockevent_params
-      params.require(:clockevent).permit(:type, :detail)
+      params.require(:clockevent).permit(:event, :detail)
     end
 end

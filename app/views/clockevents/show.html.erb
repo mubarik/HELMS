@@ -1,6 +1,6 @@
 <p>
-  <strong>Type:</strong>
-  <%= @clockevent.type %>
+  <strong>Event:</strong>
+  <%= @clockevent.event %>
 </p>
 
 <p>
@@ -10,7 +10,7 @@
 
 <p>
   <strong>User:</strong>
-  <%= @clockevent.user %>
+  <%= @clockevent.user.username %>
 </p>
 
 <%= link_to 'Edit', edit_clockevent_path(@clockevent) %> |

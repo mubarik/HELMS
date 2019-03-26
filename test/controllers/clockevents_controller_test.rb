@@ -17,7 +17,7 @@ class ClockeventsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create clockevent" do
     assert_difference('Clockevent.count') do
-      post clockevents_url, params: { clockevent: { detail: @clockevent.detail, type: @clockevent.type, user_id: @clockevent.user_id } }
+      post clockevents_url, params: { clockevent: { detail: @clockevent.detail, event: @clockevent.event, user_id: @clockevent.user_id } }
     end
 
     assert_redirected_to clockevent_url(Clockevent.last)
@@ -34,7 +34,7 @@ class ClockeventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update clockevent" do
-    patch clockevent_url(@clockevent), params: { clockevent: { detail: @clockevent.detail, type: @clockevent.type, user_id: @clockevent.user_id } }
+    patch clockevent_url(@clockevent), params: { clockevent: { detail: @clockevent.detail, event: @clockevent.event, user_id: @clockevent.user_id } }
     assert_redirected_to clockevent_url(@clockevent)
   end
 
